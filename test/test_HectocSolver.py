@@ -65,4 +65,24 @@ class Test(TestCase):
         print(solutions)
         self.assertTrue("(1+2*3)" in solutions)
         self.assertTrue("(-1+2^3)" in solutions)
-    
+
+    def test_solve_four_digits_equation_single(self):
+        solutions = solve_four_number_hectoc_equation('1', '2', '3', '4', 10)
+        self.assertTrue("(1+2+3+4)" in solutions)
+        self.assertFalse("(1+(2+3)+4)" in solutions)
+
+
+    def test_solve_four_digits_equation_singmmmle(self):
+        solutions = solve_four_number_hectoc_equation('1', '2', '3', '3', 10)
+        self.assertTrue("(-1^2+3*3)" in solutions)
+        self.assertFalse("((-1^2)+3*3)" in solutions)
+
+    def test_solve_four_digits_equation_single_(self):
+        solutions = solve_four_number_hectoc_equation('1', '2', '3', '4', 1234)
+        print(solutions)
+        self.assertTrue("1234" in solutions)
+
+    def test_solve_four_digits_equation_singl__e(self):
+        solutions = solve_four_number_hectoc_equation('1', '2', '3', '4', 119)
+        print(solutions)
+        self.assertTrue("(123-4)" in solutions)

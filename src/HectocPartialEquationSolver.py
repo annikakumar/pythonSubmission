@@ -13,15 +13,19 @@ def get_concatenate_int(input: int, secondinput: int) -> int:
 def solve_two_number_hectoc_equation(input: str, secondinput: str, result: int) -> [str]:
     solutions = []
     for singleOperator in operators:
-        solving_string = "(" + input + singleOperator + secondinput + ")"
-        neg_solving_string = "(-" + input + singleOperator + secondinput + ")"
-        if nsp.eval(solving_string) == result:
-            solutions.append(solving_string)
-        if nsp.eval(neg_solving_string) == result:
-            solutions.append(neg_solving_string)
+        solution_strings = get_candidates_two_numbers(input, secondinput, singleOperator)
+        for solution in solution_strings:
+            if nsp.eval(solution) == result:
+                solutions.append(solution)
     if (int(input + secondinput)) == result:
         solutions.append(input + secondinput)
     return list(set(solutions))
+
+
+def get_candidates_two_numbers(input, secondinput, singleOperator):
+    candidates = ["(" + input + singleOperator + secondinput + ")",
+                  "(-" + input + singleOperator + secondinput + ")"]
+    return candidates
 
 
 def remove_inner_brackets(term):
@@ -40,7 +44,11 @@ def remove_inner_brackets(term):
                                                                                                                  moving_closing_bracket_index + 1:]
 
         # If new term produces opening_bracket_index different value, keep term as it is and try with the next pair of brackets
-        if nsp.eval(term) != nsp.eval(new_term) or term[opening_bracket_index + 1] == "-":
+        is_minus_after_single_bracket = term[opening_bracket_index + 1] == "-" \
+                                        and term[opening_bracket_index  -1] is not None \
+                                        and term[opening_bracket_index  -1] != "("
+
+        if nsp.eval(term) != nsp.eval(new_term) or is_minus_after_single_bracket:
             opening_bracket_index += 1
             continue
         # Adopt new term
@@ -91,10 +99,13 @@ def remove_all_redundant_brackets_and_duplicates(solutions):
 
 
 def append_if_matches(result: int, solutions: [str], solving_string: str) -> bool:
-    if nsp.eval(solving_string) == result:
-        solutions.append(solving_string)
-        return True
-    return False
+    try:
+        if nsp.eval(solving_string) == result:
+            solutions.append(solving_string)
+            return True
+        return False
+    except:
+        return False
 
 
 def get_candidates_with_brackets(input: str, operator: str, secondinput: str, second_op: str, thirdinput: str) -> [str]:
@@ -111,7 +122,7 @@ def get_candidates_with_brackets(input: str, operator: str, secondinput: str, se
 def get_candidates_with_brackets_four_numbers(input: str, operator: str, secondinput: str, second_op: str,
                                               thirdinput: str, third_op: str, fourthinput: str) -> [str]:
     candidates = []
-    first_three = get_candidates_with_brackets(input, operator, secondinput, second_op, thirdinput, third_op)
+    first_three = get_candidates_with_brackets(input, operator, secondinput, second_op, thirdinput)
     last_three = get_candidates_with_brackets(secondinput, second_op, thirdinput, third_op, fourthinput)
 
     for candidate in first_three:
@@ -119,6 +130,26 @@ def get_candidates_with_brackets_four_numbers(input: str, operator: str, secondi
     for candidate in last_three:
         candidates.append("(" + input + operator + candidate + ")")
         candidates.append("(-" + input + operator + candidate + ")")
+
+    candidates.append("(" + input + operator + secondinput + second_op + thirdinput + third_op + fourthinput + ")")
+    candidates.append("(-" + input + operator + secondinput + second_op + thirdinput + third_op + fourthinput + ")")
+    candidates.append("((" + input + operator + secondinput + ")" + second_op + thirdinput + third_op + fourthinput + ")")
+    candidates.append("((-" + input + operator + secondinput + ")" + second_op + thirdinput + third_op + fourthinput + ")")
+    candidates.append("((" + input + operator + secondinput + ")" + second_op + "(" + thirdinput + third_op + fourthinput + "))")
+    candidates.append("((" + input + operator + secondinput + ")" + second_op + "(-" + thirdinput + third_op + fourthinput + "))")
+    candidates.append("((-" + input + operator + secondinput + ")" + second_op + "(" + thirdinput + third_op + fourthinput + "))")
+    candidates.append("((-" + input + operator + secondinput + ")" + second_op + "(-" + thirdinput + third_op + fourthinput + "))")
+    candidates.append("(" + input + operator + "(" + secondinput + second_op + thirdinput + ")" + third_op + fourthinput + ")")
+    candidates.append("(" + input + operator + "(-" + secondinput + second_op + thirdinput + ")" + third_op + fourthinput + ")")
+    candidates.append("(-" + input + operator + "(" + secondinput + second_op + thirdinput + ")" + third_op + fourthinput + ")")
+    candidates.append("(-" + input + operator + "(-" + secondinput + second_op + thirdinput + ")" + third_op + fourthinput + ")")
+    candidates.append("(" + input + operator + secondinput + second_op + "(" + thirdinput + third_op + fourthinput + "))")
+    candidates.append("(" + input + operator + secondinput + second_op + "(-" + thirdinput + third_op + fourthinput + "))")
+    candidates.append("(-" + input + operator + secondinput + second_op + "(" + thirdinput + third_op + fourthinput + "))")
+    candidates.append("(-" + input + operator + secondinput + second_op + "(-" + thirdinput + third_op + fourthinput + "))")
+
+    candidates.append("(" + input + operator + secondinput + second_op + thirdinput + third_op + fourthinput + ")")
+    candidates.append("(-" + input + operator + secondinput + second_op + thirdinput + third_op + fourthinput + ")")
 
     return candidates
 
@@ -128,5 +159,28 @@ def get_negative_and_positive_solving_string(input, operator, secondinput):
     neg_solving_string = "(-" + input + operator + secondinput + ")"
     return neg_solving_string, solving_string
 
+
 def solve_four_number_hectoc_equation(input: str, secondinput: str, thirdinput: str, fourthinput: str, result: int) -> [str]:
-    5
+    solutions = []
+
+    solutions.extend(solve_three_number_hectoc_equation(input + secondinput, thirdinput, fourthinput, result))
+    solutions.extend(solve_three_number_hectoc_equation(input, secondinput + thirdinput, fourthinput, result))
+    solutions.extend(solve_three_number_hectoc_equation(input, secondinput, thirdinput + fourthinput, result))
+
+    solutions.extend(solve_two_number_hectoc_equation(input + secondinput, thirdinput + fourthinput, result))
+    solutions.extend(solve_two_number_hectoc_equation(input + secondinput + thirdinput, fourthinput, result))
+    solutions.extend(solve_two_number_hectoc_equation(input, secondinput + thirdinput + fourthinput, result))
+
+    for operator in operators:
+        for second_op in operators:
+            for thirdoperator in operators:
+                candidates = get_candidates_with_brackets_four_numbers(input, operator, secondinput, second_op, thirdinput, thirdoperator,
+                                                                       fourthinput)
+                for candidate in candidates:
+                    append_if_matches(result, solutions, candidate)
+
+    all_concatenate = input + secondinput + thirdinput + fourthinput
+    if int(all_concatenate) == result:
+        solutions.append(all_concatenate)
+
+    return remove_all_redundant_brackets_and_duplicates(solutions)
