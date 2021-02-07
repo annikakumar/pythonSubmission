@@ -1,12 +1,9 @@
 from unittest import TestCase
-from src.HectocPartialEquationSolver import *
+from archive.HectocPartialEquationSolver import *
 
 
 class Test(TestCase):
 
-    def test_solve_hectoc_problem(self):
-        solution = solve(846659)
-        self.assertTrue("84+6+6-5+9" in solution)
     def test_solve_two_digits_add(self):
         solution = solve_two_number_hectoc_equation('1', '2', 3)
         self.assertTrue("(1+2)" in solution)
@@ -86,3 +83,5 @@ class Test(TestCase):
         solutions = solve_four_number_hectoc_equation('1', '2', '3', '4', 119)
         print(solutions)
         self.assertTrue("(123-4)" in solutions)
+
+

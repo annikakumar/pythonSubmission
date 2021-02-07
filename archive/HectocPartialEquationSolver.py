@@ -43,7 +43,7 @@ def remove_inner_brackets(term):
         new_term = term[:opening_bracket_index] + term[opening_bracket_index + 1:moving_closing_bracket_index] + term[
                                                                                                                  moving_closing_bracket_index + 1:]
 
-        # If new term produces opening_bracket_index different value, keep term as it is and try with the next pair of brackets
+        # If new expression produces opening_bracket_index different value, keep expression as it is and try with the next pair of brackets
         is_minus_after_single_bracket = term[opening_bracket_index + 1] == "-" \
                                         and term[opening_bracket_index  -1] is not None \
                                         and term[opening_bracket_index  -1] != "("
@@ -51,7 +51,7 @@ def remove_inner_brackets(term):
         if nsp.eval(term) != nsp.eval(new_term) or is_minus_after_single_bracket:
             opening_bracket_index += 1
             continue
-        # Adopt new term
+        # Adopt new expression
         term = new_term
     return term
 

@@ -1,34 +1,21 @@
-from src import IterToolsHectoc
-from src.HectocStrategy import HectocStrategy
 import time
+
+from src import HectocProgram
+from src.HectocStrategy import HectocStrategy
 
 
 class HectocSolver:
+    """
+    Solver for a hectoc problem given a solving strategy
+    """
+
     def __init__(self, hectocStrategy: HectocStrategy):
         self.strategy = hectocStrategy
 
-    def solve_hectoc_puzzle(self, input_numbers: [int], number_threads: int):
-        start = time.time()
-        print(start)
-        allPermutations = IterToolsHectoc.get_all_concatenated_combinations_with_operators(input_numbers, ['+', '-', '*', '/', '**'])
-        print("Finding all permutations in: ")
-        time_checkpoint_per = time.time()
-        print(time_checkpoint_per - start)
-        options = IterToolsHectoc.find_all_paranthesized_options(allPermutations)
-        print("Finding all paranthesis in: ")
-        time_checkpoint_par = time.time()
-        print(time_checkpoint_par - time_checkpoint_per)
-
-        solve = IterToolsHectoc.solve(options, 100)
-
+    def solve_hectoc_puzzle(self, input_numbers: [int], number_threads: int) -> None:
+        start_time = time.time()
+        self.strategy.solve_hectoc_puzzle(input_numbers, number_threads)
         end = time.time()
-        print(end)
-        print("Elapsed time in seconds: " + str(end - start))
-        print("Finding all solutions in: ")
-        print(end - time_checkpoint_par)
-        print(solve)
-        return solve
-
-
-
-
+        print(HectocProgram.bcolors.UNDERLINE + HectocProgram.bcolors.OKCYAN + "Elapsed time in seconds: " + str(
+            end - start_time) + HectocProgram.bcolors.ENDC)
+        return

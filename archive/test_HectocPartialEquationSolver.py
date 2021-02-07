@@ -1,5 +1,5 @@
 from unittest import TestCase
-from src.HectocPartialEquationSolver import *
+from archive.HectocPartialEquationSolver import *
 
 class Test(TestCase):
 
