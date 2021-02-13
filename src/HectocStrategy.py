@@ -12,9 +12,15 @@ class HectocStrategy:
         raise NotImplementedError("This is the abstract superclass, use the implemented subclasses instead")
 
     def split_in_pieces(self, options: [str], number_threads: int):
+        """
+        Splits array into subarrays for multithreading
+        :param options: aray to split
+        :param number_threads: number of buckets
+        :return: array with splits
+        """
         option_array = []
         len_opt = len(options)
-        step_size = len_opt // number_threads
+        step_size = len_opt // number_threads + 1
         if step_size == 0:
             return options
         for i in range(1, number_threads + 1):

@@ -2,10 +2,7 @@ from unittest import TestCase
 
 from src import IterToolsHectoc
 
-
 class Test(TestCase):
-    def test_list_all(self):
-        self.fail()
 
     def test_all_concatenate_options(self):
         allPermutations = IterToolsHectoc.list_all(IterToolsHectoc.operators, [1, 2, 3, 4, 5, 6])
@@ -52,29 +49,10 @@ class Test(TestCase):
         allPermutations = IterToolsHectoc.get_all_concatenated_combinations_with_operators([1, 2, 3], ['+', '-'])
         print(allPermutations)
 
-    def test_combine_expressions_and_concat(self):
-        allPermutations = IterToolsHectoc.get_all_concatenated_combinations_with_operators([1, 2, 3], ['+', '-', '^', '/', '*'])
-        print(allPermutations)
-        print(len(allPermutations))
-
-    def test_combine_expressions_and_concat(self):
-        allPermutations = IterToolsHectoc.get_all_concatenated_combinations_with_operators([1, 2, 3, 4, 5, 6], ['+', '-', '^', '/', '*'])
-        print(allPermutations)
-        print(len(allPermutations))
-
-    def test_combine_expressions_and_concsssat(self):
-        allPermutations = IterToolsHectoc.get_all_concatenated_combinations_with_operators([1, 2, 3, 4, 5, 6], ['+', '-', '^', '/', '*'])
-        print(allPermutations)
-        print(len(allPermutations))
-
-    def test_combine_expresddsions_and_concsssat(self):
+    def test_combine_expression_and_concat(self):
         allPermutations = IterToolsHectoc.get_all_concatenated_combinations_with_operators([1, 2, 3], ['+', '-', '^'])
         options = IterToolsHectoc.find_all_paranthesized_options(allPermutations)
         solve = IterToolsHectoc.solve(options, 6)
-        print(options)
-        print(solve)
-
-        print(len(allPermutations))
 
 
 

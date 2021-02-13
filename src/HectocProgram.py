@@ -33,7 +33,8 @@ class HectocSolvingProgram:
         """
         print(bcolors.BOLD +
               "\nWelcome to the Hectoc Solver. This hectoc_program can solve the hectoc puzzle with different strategies and present you with the solutions. "
-              "The puzzle takes six digits as input and finds solutions reaching 100. \n" + bcolors.ENDC)
+              "The puzzle takes six digits as input and finds solutions reaching 100. \nFor more explanation,"
+              " feel free to visit: http://www.vankoningsveld.de/index.php?page=hectoc\n" + bcolors.ENDC)
 
         hectoc_int_input = self.get_valid_user_hectoc_number_input()
         hectoc_int_strategy = self.determine_strategy_notimplemented()

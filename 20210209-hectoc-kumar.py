@@ -1,5 +1,4 @@
-import logging
-from random import choices, randint
+#!/usr/bin/env python3
 
 from src.HectocProgram import HectocSolvingProgram
 

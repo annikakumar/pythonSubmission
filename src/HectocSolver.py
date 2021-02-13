@@ -1,5 +1,4 @@
 import time
-
 from src import HectocProgram
 from src.HectocStrategy import HectocStrategy
 
