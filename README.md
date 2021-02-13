@@ -6,6 +6,6 @@ This program with the entry point:
 The rules are decribed here : http://www.vankoningsveld.de/index.php?page=hectoc
 
 The author is not a fan of documenting self explanatory code. As there are however some places which could be more tested and simplified, do not hesitate to contact the author
-if there are any questions or suggestions whatsoever: annika.c.kumar@gmail.com
+if there are any questions or suggestions whatsoever
 
 Furthermore, to have the best (coloured) - experience, you can run the script e.g. from a js shell (for example in the bash of git for windows)
