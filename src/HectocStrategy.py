@@ -44,13 +44,13 @@ class BruteForceStrategy(HectocStrategy):
     @abstractmethod
     def solve_hectoc_puzzle(self, input_numbers: [int], number_threads: int):
 
-        allPermutations = self.find_permutations(input_numbers)
+        allPermutations = self.find_permutations_of_numbers_and_operators(input_numbers)
 
-        candidates = self.find_candidates(allPermutations)
+        candidates = self.find_all_parantheses(allPermutations)
 
         self.run_in_parallel(candidates, number_threads)
 
-    def find_candidates(self, allPermutations):
+    def find_all_parantheses(self, allPermutations):
         cand_start = time.time()
         candidates = IterToolsHectoc.find_all_paranthesized_options(allPermutations)
         cand_end = time.time()
@@ -58,7 +58,7 @@ class BruteForceStrategy(HectocStrategy):
         print("Resulting: " + str(len(candidates)) + " solution candidates")
         return candidates
 
-    def find_permutations(self, input_numbers):
+    def find_permutations_of_numbers_and_operators(self, input_numbers):
         per_start = time.time()
         allPermutations = IterToolsHectoc.get_all_concatenated_combinations_with_operators(input_numbers, ['+', '-', '*', '/', '^'])
         per_end = time.time()
